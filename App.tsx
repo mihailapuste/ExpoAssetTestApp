@@ -72,7 +72,7 @@ function App(): JSX.Element {
           setIsStreamingVideoExpoRNVideo(!isStreamingVideoRNVideo)
         }>
         <Text>
-          RN Video source : {isStreamingVideoExpo ? 'Remote' : 'Bundled'}
+          RN Video source : {isStreamingVideoRNVideo ? 'Remote' : 'Bundled'}
         </Text>
       </TouchableOpacity>
     </SafeAreaView>
