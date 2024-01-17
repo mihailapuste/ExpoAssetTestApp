@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import {useState} from 'react';
 
 import {
   SafeAreaView,
@@ -17,7 +17,8 @@ import {
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
-import {Video} from 'expo-av';
+import {Video as ExpoVideo} from 'expo-av';
+import Video from 'react-native-video';
 import MonkeyVideo from './assets/monkey.mp4';
 
 function App(): JSX.Element {
@@ -27,7 +28,9 @@ function App(): JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const [isStreamingVideo, setIsStreamingVideo] = React.useState(true);
+  const [isStreamingVideoExpo, setIsStreamingVideoExpo] = useState(true);
+  const [isStreamingVideoRNVideo, setIsStreamingVideoExpoRNVideo] =
+    useState(true);
   const monkeyRemoteVideoSource = {
     uri: 'https://www.shutterstock.com/shutterstock/videos/6908191/preview/stock-footage-chimpanzee-eating-banana.mp4',
   };
@@ -38,18 +41,38 @@ function App(): JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <Video
-        source={isStreamingVideo ? monkeyRemoteVideoSource : MonkeyVideo}
+      <ExpoVideo
+        source={isStreamingVideoExpo ? monkeyRemoteVideoSource : MonkeyVideo}
         isLooping
         shouldPlay
         style={{width: 300, height: 300}}
       />
 
       <TouchableOpacity
-        style={{width: 300, height: 30, backgroundColor: 'red'}}
-        onPress={() => setIsStreamingVideo(!isStreamingVideo)}>
+        style={{
+          width: 300,
+          height: 30,
+          marginBottom: 100,
+          backgroundColor: 'blue',
+        }}
+        onPress={() => setIsStreamingVideoExpo(!isStreamingVideoExpo)}>
         <Text>
-          Toggle Video source : {isStreamingVideo ? 'Remote' : 'Bundled'}
+          EXPO Video source : {isStreamingVideoExpo ? 'Remote' : 'Bundled'}
+        </Text>
+      </TouchableOpacity>
+
+      <Video
+        source={isStreamingVideoRNVideo ? monkeyRemoteVideoSource : MonkeyVideo}
+        repeat
+        style={{width: 300, height: 300}}
+      />
+      <TouchableOpacity
+        style={{width: 300, height: 30, backgroundColor: 'red'}}
+        onPress={() =>
+          setIsStreamingVideoExpoRNVideo(!isStreamingVideoRNVideo)
+        }>
+        <Text>
+          RN Video source : {isStreamingVideoExpo ? 'Remote' : 'Bundled'}
         </Text>
       </TouchableOpacity>
     </SafeAreaView>
