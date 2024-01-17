@@ -48,7 +48,9 @@ function App(): JSX.Element {
       <TouchableOpacity
         style={{width: 300, height: 30, backgroundColor: 'red'}}
         onPress={() => setIsStreamingVideo(!isStreamingVideo)}>
-        <Text>Toggle Video source</Text>
+        <Text>
+          Toggle Video source : {isStreamingVideo ? 'Remote' : 'Bundled'}
+        </Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
